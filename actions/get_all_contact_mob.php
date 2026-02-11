@@ -52,9 +52,9 @@ try {
     $contacts = [];
     while ($row = $result->fetch_assoc()) {
         $contacts[] = [
-            'pid' => $row['pid'],
-            'pname' => $row['pname'],
-            'pphone' => $row['pphone']
+            'id' => $row['pid'],
+            'name' => $row['pname'],
+            'phone' => $row['pphone']
         ];
     }
     
@@ -64,7 +64,10 @@ try {
     
     // Return success response with contacts
     http_response_code(200);
-    echo json_encode($contacts);
+    echo json_encode([
+        'success' => true,
+        'data' => $contacts
+    ]);
     
 } catch (Exception $e) {
     // Log error
@@ -73,9 +76,8 @@ try {
     // Return error response
     http_response_code(500);
     echo json_encode([
-        'status' => 'error',
-        'message' => 'Failed to retrieve contacts',
-        'details' => $e->getMessage()
+        'success' => false,
+        'error' => 'Failed to retrieve contacts'
     ]);
 }
 ?>

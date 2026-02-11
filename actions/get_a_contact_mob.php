@@ -39,16 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 try {
     // Get contact ID from query parameter
-    if (!isset($_GET['contid']) || empty($_GET['contid'])) {
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
         http_response_code(400);
         echo json_encode([
-            'status' => 'error',
-            'message' => 'Missing required parameter: contid'
+            'success' => false,
+            'error' => 'Missing required parameter: id'
         ]);
         exit();
     }
     
-    $contactId = intval($_GET['contid']);
+    $contactId = intval($_GET['id']);
     
     // Validate contact ID
     if ($contactId <= 0) {
@@ -89,14 +89,19 @@ try {
         
         http_response_code(404);
         echo json_encode([
-            'status' => 'error',
-            'message' => 'Contact not found'
+            'success' => false,
+            'error' => 'not found'
         ]);
         exit();
     }
     
     // Fetch contact
-    $contact = $result->fetch_assoc();
+    $row = $result->fetch_assoc();
+    $contact = [
+        'id' => $row['pid'],
+        'name' => $row['pname'],
+        'phone' => $row['pphone']
+    ];
     
     // Close connection
     $stmt->close();

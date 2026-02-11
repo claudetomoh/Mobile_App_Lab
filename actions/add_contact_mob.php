@@ -54,31 +54,43 @@ try {
     }
     
     // Validate input
-    if (!isset($data['ufullname']) || !isset($data['uphonename'])) {
+    if (!isset($data['name']) || !isset($data['phone'])) {
         http_response_code(400);
-        echo json_encode("failed - Missing required fields: ufullname and uphonename");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Missing required fields: name and phone'
+        ]);
         exit();
     }
     
-    $fullname = trim($data['ufullname']);
-    $phonename = trim($data['uphonename']);
+    $fullname = trim($data['name']);
+    $phonename = trim($data['phone']);
     
     // Validate data
     if (empty($fullname)) {
         http_response_code(400);
-        echo json_encode("failed - Name cannot be empty");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Name cannot be empty'
+        ]);
         exit();
     }
     
     if (empty($phonename)) {
         http_response_code(400);
-        echo json_encode("failed - Phone number cannot be empty");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Phone number cannot be empty'
+        ]);
         exit();
     }
     
     if (strlen($phonename) < 10) {
         http_response_code(400);
-        echo json_encode("failed - Phone number must be at least 10 digits");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Phone number must be at least 10 digits'
+        ]);
         exit();
     }
     
@@ -98,13 +110,15 @@ try {
     
     // Execute query
     if ($stmt->execute()) {
-        $insertedId = $stmt->insert_id;
+        $insertedId = $conn->insert_id;
         $stmt->close();
         closeDBConnection($conn);
         
-        // Return success
-        http_response_code(200);
-        echo json_encode("success");
+        http_response_code(201);
+        echo json_encode([
+            'success' => true,
+            'data' => ['id' => $insertedId]
+        ]);
     } else {
         throw new Exception("Execute failed: " . $stmt->error);
     }
@@ -115,6 +129,9 @@ try {
     
     // Return error response
     http_response_code(500);
-    echo json_encode("failed - " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'error' => 'Failed to add contact'
+    ]);
 }
 ?>

@@ -53,18 +53,24 @@ try {
     }
     
     // Validate input
-    if (!isset($data['cid']) || empty($data['cid'])) {
+    if (!isset($data['id']) || empty($data['id'])) {
         http_response_code(400);
-        echo json_encode(false);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Missing required parameter: id'
+        ]);
         exit();
     }
     
-    $contactId = intval($data['cid']);
+    $contactId = intval($data['id']);
     
     // Validate data
     if ($contactId <= 0) {
         http_response_code(400);
-        echo json_encode(false);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Invalid contact ID'
+        ]);
         exit();
     }
     
@@ -105,9 +111,10 @@ try {
         $stmt->close();
         closeDBConnection($conn);
         
-        // Return true if deletion was successful
         http_response_code(200);
-        echo json_encode($affectedRows > 0);
+        echo json_encode([
+            'success' => true
+        ]);
     } else {
         throw new Exception("Execute failed: " . $stmt->error);
     }
@@ -118,6 +125,9 @@ try {
     
     // Return error response
     http_response_code(500);
-    echo json_encode(false);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Failed to delete contact'
+    ]);
 }
 ?>

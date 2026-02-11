@@ -55,38 +55,53 @@ try {
     }
     
     // Validate input
-    if (!isset($data['cid']) || !isset($data['cname']) || !isset($data['cnum'])) {
+    if (!isset($data['id']) || !isset($data['name']) || !isset($data['phone'])) {
         http_response_code(400);
-        echo json_encode("failed - Missing required fields: cid, cname, and cnum");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Missing required fields: id, name, and phone'
+        ]);
         exit();
     }
     
-    $contactId = intval($data['cid']);
-    $contactName = trim($data['cname']);
-    $contactPhone = trim($data['cnum']);
+    $contactId = intval($data['id']);
+    $contactName = trim($data['name']);
+    $contactPhone = trim($data['phone']);
     
     // Validate data
     if ($contactId <= 0) {
         http_response_code(400);
-        echo json_encode("failed - Invalid contact ID");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Invalid contact ID'
+        ]);
         exit();
     }
     
     if (empty($contactName)) {
         http_response_code(400);
-        echo json_encode("failed - Name cannot be empty");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Name cannot be empty'
+        ]);
         exit();
     }
     
     if (empty($contactPhone)) {
         http_response_code(400);
-        echo json_encode("failed - Phone number cannot be empty");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Phone number cannot be empty'
+        ]);
         exit();
     }
     
     if (strlen($contactPhone) < 10) {
         http_response_code(400);
-        echo json_encode("failed - Phone number must be at least 10 digits");
+        echo json_encode([
+            'success' => false,
+            'error' => 'Phone number must be at least 10 digits'
+        ]);
         exit();
     }
     
@@ -105,7 +120,10 @@ try {
         closeDBConnection($conn);
         
         http_response_code(404);
-        echo json_encode("failed - Contact not found");
+        echo json_encode([
+            'success' => false,
+            'error' => 'not found'
+        ]);
         exit();
     }
     $checkStmt->close();
@@ -127,9 +145,10 @@ try {
         $stmt->close();
         closeDBConnection($conn);
         
-        // Return success
         http_response_code(200);
-        echo json_encode("success");
+        echo json_encode([
+            'success' => true
+        ]);
     } else {
         throw new Exception("Execute failed: " . $stmt->error);
     }
@@ -140,6 +159,9 @@ try {
     
     // Return error response
     http_response_code(500);
-    echo json_encode("failed - " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'error' => 'Failed to update contact'
+    ]);
 }
 ?>
