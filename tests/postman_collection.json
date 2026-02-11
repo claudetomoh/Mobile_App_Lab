@@ -1,0 +1,113 @@
+{
+    "info": {
+        "name": "Contact Management API",
+        "_postman_id": "contact-mgt-api-001",
+        "description": "Ashesi Contact Management System API - All 5 Endpoints",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [{
+            "name": "1. Get All Contacts",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/get_all_contact_mob.php",
+                    "protocol": "https",
+                    "host": ["apps", "ashesi", "edu", "gh"],
+                    "path": ["contactmgt", "actions", "get_all_contact_mob.php"]
+                },
+                "description": "Retrieves all contacts from the database"
+            },
+            "response": []
+        },
+        {
+            "name": "2. Add New Contact",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"ufullname\": \"Test User\",\n  \"uphonename\": \"+233501234567\"\n}"
+                },
+                "url": {
+                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/add_contact_mob.php",
+                    "protocol": "https",
+                    "host": ["apps", "ashesi", "edu", "gh"],
+                    "path": ["contactmgt", "actions", "add_contact_mob.php"]
+                },
+                "description": "Adds a new contact to the database"
+            },
+            "response": []
+        },
+        {
+            "name": "3. Get One Contact",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/get_a_contact_mob.php?contid=1",
+                    "protocol": "https",
+                    "host": ["apps", "ashesi", "edu", "gh"],
+                    "path": ["contactmgt", "actions", "get_a_contact_mob.php"],
+                    "query": [{
+                        "key": "contid",
+                        "value": "1",
+                        "description": "Contact ID to retrieve"
+                    }]
+                },
+                "description": "Retrieves a single contact by ID"
+            },
+            "response": []
+        },
+        {
+            "name": "4. Update Contact",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"cid\": 1,\n  \"cname\": \"Updated Name\",\n  \"cnum\": \"+233509876543\"\n}"
+                },
+                "url": {
+                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/update_contact.php",
+                    "protocol": "https",
+                    "host": ["apps", "ashesi", "edu", "gh"],
+                    "path": ["contactmgt", "actions", "update_contact.php"]
+                },
+                "description": "Updates an existing contact"
+            },
+            "response": []
+        },
+        {
+            "name": "5. Delete Contact",
+            "request": {
+                "method": "POST",
+                "header": [{
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                }],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"cid\": 1\n}"
+                },
+                "url": {
+                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/delete_contact.php",
+                    "protocol": "https",
+                    "host": ["apps", "ashesi", "edu", "gh"],
+                    "path": ["contactmgt", "actions", "delete_contact.php"]
+                },
+                "description": "Deletes a contact from the database"
+            },
+            "response": []
+        }
+    ]
+}
