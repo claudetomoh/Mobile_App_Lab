@@ -4,112 +4,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick API Test - Local</title>
+    <title>Contact Management API Tester</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #f5f5f5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
         }
         
-        .box {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+        
+        .config-box {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            animation: fadeInUp 0.6s ease-out 0.1s both;
         }
         
-        h1 {
-            color: #2196F3;
+        .config-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-box small {
+            color: #666;
+            display: block;
+            margin-top: 8px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .test-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+        
+        .test-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .test-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .test-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .test-card:nth-child(4) {
+            animation-delay: 0.5s;
+        }
+        
+        .test-card:nth-child(5) {
+            animation-delay: 0.6s;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .test-card h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-card h3 .badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         button {
-            background: #2196F3;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 14px 28px;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
         }
         
         button:hover {
-            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
         
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
+        button:active {
+            transform: translateY(0);
         }
         
-        .success {
+        button.delete-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        button.delete-btn:hover {
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        .result-box.success {
+            background: linear-gradient(135deg, #e0f7e9 0%, #d4f1e0 100%);
             border-left: 4px solid #4CAF50;
         }
         
-        .error {
+        .result-box.error {
+            background: linear-gradient(135deg, #ffe5e5 0%, #ffd4d4 100%);
             border-left: 4px solid #F44336;
         }
         
-        input {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .result-box h4 {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result-box.success h4 {
+            color: #2e7d32;
+        }
+        
+        .result-box.error h4 {
+            color: #c62828;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            body {
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>🚀 Local API Tester</h1>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Contact Management API</h1>
+            <p>Interactive Testing Dashboard</p>
+        </div>
 
-    <div class="box">
-        <h3>Base URL Configuration</h3>
-        <input type="text" id="baseUrl" value="http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/" placeholder="Your API base URL">
-        <small>Testing against Ashesi live server</small>
-    </div>
+        <div class="config-box">
+            <h3>⚙️ API Configuration</h3>
+            <input type="text" id="baseUrl" value="http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/" placeholder="Your API base URL">
+            <small>📍 Currently testing against: <strong>Ashesi Live Server</strong></small>
+        </div>
 
-    <div class="box">
-        <h3>1️⃣ Test: Get All Contacts</h3>
-        <button onclick="testGetAll()">🔍 Get All Contacts</button>
-        <div id="result1"></div>
-    </div>
+        <div class="grid">
+            <div class="test-card">
+                <h3><span class="badge">GET</span> Get All Contacts</h3>
+                <button onclick="testGetAll()">
+                    <span>🔍</span> Fetch All Contacts
+                </button>
+                <div id="result1"></div>
+            </div>
 
-    <div class="box">
-        <h3>2️⃣ Test: Add New Contact</h3>
-        <input type="text" id="addName" placeholder="Name" value="Test User">
-        <input type="text" id="addPhone" placeholder="Phone" value="+233501234567">
-        <button onclick="testAdd()">➕ Add Contact</button>
-        <div id="result2"></div>
-    </div>
+            <div class="test-card">
+                <h3><span class="badge">POST</span> Add New Contact</h3>
+                <div class="input-group">
+                    <label>👤 Full Name</label>
+                    <input type="text" id="addName" placeholder="Enter full name" value="Test User">
+                </div>
+                <div class="input-group">
+                    <label>📱 Phone Number</label>
+                    <input type="text" id="addPhone" placeholder="+233XXXXXXXXX" value="+233501234567">
+                </div>
+                <button onclick="testAdd()">
+                    <span>➕</span> Create Contact
+                </button>
+                <div id="result2"></div>
+            </div>
 
-    <div class="box">
-        <h3>3️⃣ Test: Get One Contact</h3>
-        <input type="number" id="getOneId" placeholder="Contact ID" value="1">
-        <button onclick="testGetOne()">🔍 Get Contact</button>
-        <div id="result3"></div>
-    </div>
+            <div class="test-card">
+                <h3><span class="badge">GET</span> Get Single Contact</h3>
+                <div class="input-group">
+                    <label>🔑 Contact ID</label>
+                    <input type="number" id="getOneId" placeholder="Enter contact ID" value="5">
+                </div>
+                <button onclick="testGetOne()">
+                    <span>🔍</span> Fetch Contact
+                </button>
+                <div id="result3"></div>
+            </div>
 
-    <div class="box">
-        <h3>4️⃣ Test: Update Contact</h3>
-        <input type="number" id="updateId" placeholder="Contact ID" value="1">
-        <input type="text" id="updateName" placeholder="New Name" value="Updated Name">
-        <input type="text" id="updatePhone" placeholder="New Phone" value="+233509999999">
-        <button onclick="testUpdate()">✏️ Update Contact</button>
-        <div id="result4"></div>
-    </div>
+            <div class="test-card">
+                <h3><span class="badge">POST</span> Update Contact</h3>
+                <div class="input-group">
+                    <label>🔑 Contact ID</label>
+                    <input type="number" id="updateId" placeholder="Enter contact ID" value="6">
+                </div>
+                <div class="input-group">
+                    <label>👤 New Name</label>
+                    <input type="text" id="updateName" placeholder="Enter new name" value="Updated Name">
+                </div>
+                <div class="input-group">
+                    <label>📱 New Phone</label>
+                    <input type="text" id="updatePhone" placeholder="+233XXXXXXXXX" value="+233509999999">
+                </div>
+                <button onclick="testUpdate()">
+                    <span>✏️</span> Update Contact
+                </button>
+                <div id="result4"></div>
+            </div>
 
-    <div class="box">
-        <h3>5️⃣ Test: Delete Contact</h3>
-        <input type="number" id="deleteId" placeholder="Contact ID" value="1">
-        <button onclick="testDelete()" style="background: #F44336;">🗑️ Delete Contact</button>
-        <div id="result5"></div>
+            <div class="test-card">
+                <h3><span class="badge">DELETE</span> Delete Contact</h3>
+                <div class="input-group">
+                    <label>🔑 Contact ID</label>
+                    <input type="number" id="deleteId" placeholder="Enter contact ID" value="8">
+                </div>
+                <button onclick="testDelete()" class="delete-btn">
+                    <span>🗑️</span> Delete Contact
+                </button>
+                <div id="result5"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💡 Mobile App Development Lab - Contact Management System</p>
+        </div>
     </div>
 
     <script>
@@ -117,12 +406,25 @@
             return document.getElementById('baseUrl').value;
         }
 
+        function showLoader(buttonElement) {
+            buttonElement.disabled = true;
+            buttonElement.innerHTML += '<span class="loader"></span>';
+        }
+
+        function hideLoader(buttonElement, originalText) {
+            buttonElement.disabled = false;
+            buttonElement.innerHTML = originalText;
+        }
+
         function showResult(divId, data, success = true) {
             const div = document.getElementById(divId);
             const className = success ? 'success' : 'error';
+            const icon = success ? '✅' : '❌';
+            const statusText = success ? 'Success' : 'Error';
+
             div.innerHTML = `
-                <div class="box ${className}" style="margin-top: 15px;">
-                    <h4>${success ? '✅ Success' : '❌ Error'}</h4>
+                <div class="result-box ${className}">
+                    <h4>${icon} ${statusText}</h4>
                     <pre>${JSON.stringify(data, null, 2)}</pre>
                 </div>
             `;
@@ -141,6 +443,16 @@
         }
 
         async function testAdd() {
+            const nameInput = document.getElementById('addName').value.trim();
+            const phoneInput = document.getElementById('addPhone').value.trim();
+
+            if (!nameInput || !phoneInput) {
+                showResult('result2', {
+                    error: 'Name and phone are required'
+                }, false);
+                return;
+            }
+
             try {
                 const response = await fetch(getBaseUrl() + 'add_contact_mob.php', {
                     method: 'POST',
@@ -148,12 +460,18 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name: document.getElementById('addName').value,
-                        phone: document.getElementById('addPhone').value
+                        name: nameInput,
+                        phone: phoneInput
                     })
                 });
                 const data = await response.json();
                 showResult('result2', data, response.ok);
+
+                if (response.ok) {
+                    // Clear inputs on success
+                    document.getElementById('addName').value = '';
+                    document.getElementById('addPhone').value = '';
+                }
             } catch (error) {
                 showResult('result2', {
                     error: error.message
@@ -162,9 +480,17 @@
         }
 
         async function testGetOne() {
+            const idInput = document.getElementById('getOneId').value;
+
+            if (!idInput) {
+                showResult('result3', {
+                    error: 'Contact ID is required'
+                }, false);
+                return;
+            }
+
             try {
-                const id = document.getElementById('getOneId').value;
-                const response = await fetch(getBaseUrl() + `get_a_contact_mob.php?id=${id}`);
+                const response = await fetch(getBaseUrl() + `get_a_contact_mob.php?id=${idInput}`);
                 const data = await response.json();
                 showResult('result3', data, response.ok);
             } catch (error) {
@@ -175,6 +501,17 @@
         }
 
         async function testUpdate() {
+            const idInput = document.getElementById('updateId').value;
+            const nameInput = document.getElementById('updateName').value.trim();
+            const phoneInput = document.getElementById('updatePhone').value.trim();
+
+            if (!idInput || !nameInput || !phoneInput) {
+                showResult('result4', {
+                    error: 'All fields are required'
+                }, false);
+                return;
+            }
+
             try {
                 const response = await fetch(getBaseUrl() + 'update_contact.php', {
                     method: 'POST',
@@ -182,9 +519,9 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: parseInt(document.getElementById('updateId').value),
-                        name: document.getElementById('updateName').value,
-                        phone: document.getElementById('updatePhone').value
+                        id: parseInt(idInput),
+                        name: nameInput,
+                        phone: phoneInput
                     })
                 });
                 const data = await response.json();
@@ -197,7 +534,18 @@
         }
 
         async function testDelete() {
-            if (!confirm('Are you sure you want to delete this contact?')) return;
+            const idInput = document.getElementById('deleteId').value;
+
+            if (!idInput) {
+                showResult('result5', {
+                    error: 'Contact ID is required'
+                }, false);
+                return;
+            }
+
+            if (!confirm(`⚠️ Are you sure you want to delete contact #${idInput}?\n\nThis action cannot be undone.`)) {
+                return;
+            }
 
             try {
                 const response = await fetch(getBaseUrl() + 'delete_contact.php', {
@@ -206,17 +554,26 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: parseInt(document.getElementById('deleteId').value)
+                        id: parseInt(idInput)
                     })
                 });
                 const data = await response.json();
                 showResult('result5', data, response.ok);
+
+                if (response.ok) {
+                    document.getElementById('deleteId').value = '';
+                }
             } catch (error) {
                 showResult('result5', {
                     error: error.message
                 }, false);
             }
         }
+
+        // Load all contacts on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            testGetAll();
+        });
     </script>
 </body>
 
