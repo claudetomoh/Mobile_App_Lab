@@ -11,10 +11,10 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/get_all_contact_mob.php",
-                    "protocol": "https",
-                    "host": ["apps", "ashesi", "edu", "gh"],
-                    "path": ["contactmgt", "actions", "get_all_contact_mob.php"]
+                    "raw": "http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/get_all_contact_mob.php",
+                    "protocol": "http",
+                    "host": ["169.239.251.102:280"],
+                    "path": ["~tomoh.ikfingeh", "Mobile_App_Lab", "actions", "get_all_contact_mob.php"]
                 },
                 "description": "Retrieves all contacts from the database"
             },
@@ -31,13 +31,13 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n  \"ufullname\": \"Test User\",\n  \"uphonename\": \"+233501234567\"\n}"
+                    "raw": "{\n  \"name\": \"Postman Test User\",\n  \"phone\": \"+233501234567\"\n}"
                 },
                 "url": {
-                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/add_contact_mob.php",
-                    "protocol": "https",
-                    "host": ["apps", "ashesi", "edu", "gh"],
-                    "path": ["contactmgt", "actions", "add_contact_mob.php"]
+                    "raw": "http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/add_contact_mob.php",
+                    "protocol": "http",
+                    "host": ["169.239.251.102:280"],
+                    "path": ["~tomoh.ikfingeh", "Mobile_App_Lab", "actions", "add_contact_mob.php"]
                 },
                 "description": "Adds a new contact to the database"
             },
@@ -49,13 +49,13 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/get_a_contact_mob.php?contid=1",
-                    "protocol": "https",
-                    "host": ["apps", "ashesi", "edu", "gh"],
-                    "path": ["contactmgt", "actions", "get_a_contact_mob.php"],
+                    "raw": "http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/get_a_contact_mob.php?id=5",
+                    "protocol": "http",
+                    "host": ["169.239.251.102:280"],
+                    "path": ["~tomoh.ikfingeh", "Mobile_App_Lab", "actions", "get_a_contact_mob.php"],
                     "query": [{
-                        "key": "contid",
-                        "value": "1",
+                        "key": "id",
+                        "value": "5",
                         "description": "Contact ID to retrieve"
                     }]
                 },
@@ -74,13 +74,13 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n  \"cid\": 1,\n  \"cname\": \"Updated Name\",\n  \"cnum\": \"+233509876543\"\n}"
+                    "raw": "{\n  \"id\": 6,\n  \"name\": \"Updated Via Postman\",\n  \"phone\": \"+233509876543\"\n}"
                 },
                 "url": {
-                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/update_contact.php",
-                    "protocol": "https",
-                    "host": ["apps", "ashesi", "edu", "gh"],
-                    "path": ["contactmgt", "actions", "update_contact.php"]
+                    "raw": "http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/update_contact.php",
+                    "protocol": "http",
+                    "host": ["169.239.251.102:280"],
+                    "path": ["~tomoh.ikfingeh", "Mobile_App_Lab", "actions", "update_contact.php"]
                 },
                 "description": "Updates an existing contact"
             },
@@ -97,13 +97,13 @@
                 }],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\n  \"cid\": 1\n}"
+                    "raw": "{\n  \"id\": 8\n}"
                 },
                 "url": {
-                    "raw": "https://apps.ashesi.edu.gh/contactmgt/actions/delete_contact.php",
-                    "protocol": "https",
-                    "host": ["apps", "ashesi", "edu", "gh"],
-                    "path": ["contactmgt", "actions", "delete_contact.php"]
+                    "raw": "http://169.239.251.102:280/~tomoh.ikfingeh/Mobile_App_Lab/actions/delete_contact.php",
+                    "protocol": "http",
+                    "host": ["169.239.251.102:280"],
+                    "path": ["~tomoh.ikfingeh", "Mobile_App_Lab", "actions", "delete_contact.php"]
                 },
                 "description": "Deletes a contact from the database"
             },
