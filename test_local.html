@@ -148,8 +148,8 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        ufullname: document.getElementById('addName').value,
-                        uphonename: document.getElementById('addPhone').value
+                        name: document.getElementById('addName').value,
+                        phone: document.getElementById('addPhone').value
                     })
                 });
                 const data = await response.json();
@@ -164,7 +164,7 @@
         async function testGetOne() {
             try {
                 const id = document.getElementById('getOneId').value;
-                const response = await fetch(getBaseUrl() + `get_a_contact_mob.php?contid=${id}`);
+                const response = await fetch(getBaseUrl() + `get_a_contact_mob.php?id=${id}`);
                 const data = await response.json();
                 showResult('result3', data, response.ok);
             } catch (error) {
@@ -182,9 +182,9 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        cid: parseInt(document.getElementById('updateId').value),
-                        cname: document.getElementById('updateName').value,
-                        cnum: document.getElementById('updatePhone').value
+                        id: parseInt(document.getElementById('updateId').value),
+                        name: document.getElementById('updateName').value,
+                        phone: document.getElementById('updatePhone').value
                     })
                 });
                 const data = await response.json();
@@ -206,7 +206,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        cid: parseInt(document.getElementById('deleteId').value)
+                        id: parseInt(document.getElementById('deleteId').value)
                     })
                 });
                 const data = await response.json();
