@@ -89,7 +89,10 @@ try {
         closeDBConnection($conn);
         
         http_response_code(404);
-        echo json_encode(false);
+        echo json_encode([
+            'success' => false,
+            'error' => "Contact with ID {$contactId} not found"
+        ]);
         exit();
     }
     $checkStmt->close();

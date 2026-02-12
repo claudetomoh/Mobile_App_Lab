@@ -122,7 +122,7 @@ try {
         http_response_code(404);
         echo json_encode([
             'success' => false,
-            'error' => 'not found'
+            'error' => "Contact with ID {$contactId} not found"
         ]);
         exit();
     }
