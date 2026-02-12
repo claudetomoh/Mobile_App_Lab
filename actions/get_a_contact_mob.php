@@ -110,9 +110,8 @@ try {
     // Return success response with contact
     http_response_code(200);
     echo json_encode([
-        'pid' => $contact['pid'],
-        'pname' => $contact['pname'],
-        'pphone' => $contact['pphone']
+        'success' => true,
+        'data' => $contact
     ]);
     
 } catch (Exception $e) {
